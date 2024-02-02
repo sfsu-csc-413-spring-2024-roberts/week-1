@@ -1,50 +1,108 @@
 package bst;
 
-public class Node {
-  private int value;
-  private Node left, right;
-  private int height;
+public class Node<ValueType extends Comparable<ValueType>> {
+  private ValueType value;
+  private Node<ValueType> left, right;
 
-  public Node(int value) {
+  public Node(ValueType value) {
     this.value = value;
   }
 
-  public int getValue() {
+  public ValueType getValue() {
     return this.value;
   }
 
-  public Node getLeft() {
+  public Node<ValueType> getLeft() {
     return this.left;
   }
 
-  public Node getRight() {
+  public Node<ValueType> getRight() {
     return this.right;
   }
 
   public int getHeight() {
-    return this.height;
+    return getHeight(this);
   }
 
-  private int getHeight(int current) {
-    int leftHeight = this.getLeft().getHeight();
-    int rightHeight = this.getRight().getHeight();
+  private int getHeight(Node<ValueType> current) {
+    if (current == null) {
+      return 0;
+    }
 
-    // return current + Math.max(thi, current)
+    int leftHeight = 0;
+    if (this.left != null) {
+      leftHeight = this.left.getHeight();
+    }
+
+    int rightHeight = 0;
+    if (this.right != null) {
+      rightHeight = this.right.getHeight();
+    }
+
+    return 1 + Math.max(leftHeight, rightHeight);
   }
 
-  public void insert(int value) {
-    if (value < this.value) {
+  public void insert(ValueType value) {
+    if (value.compareTo(this.value) < 0) {
       if (this.left == null) {
-        this.left = new Node(value);
+        this.left = new Node<ValueType>(value);
       } else {
         this.left.insert(value);
       }
     } else {
       if (this.right == null) {
-        this.right = new Node(value);
+        this.right = new Node<ValueType>(value);
       } else {
         this.right.insert(value);
       }
     }
+  }
+
+  public boolean find(ValueType value) {
+    if (this.value.compareTo(value) == 0) {
+      return true;
+    } else if (value.compareTo(this.value) < 0 && this.left != null) {
+      return this.left.find(value);
+    } else if (value.compareTo(this.value) > 0 && this.right != null) {
+      return this.right.find(value);
+    } else {
+      return false;
+    }
+  }
+
+  public void preorder() {
+    System.out.print(this.value + " ");
+
+    if (this.left != null) {
+      this.left.preorder();
+    }
+
+    if (this.right != null) {
+      this.right.preorder();
+    }
+  }
+
+  public void inorder() {
+    if (this.left != null) {
+      this.left.inorder();
+    }
+
+    System.out.print(this.value + " ");
+
+    if (this.right != null) {
+      this.right.inorder();
+    }
+  }
+
+  public void postorder() {
+    if (this.left != null) {
+      this.left.postorder();
+    }
+
+    if (this.right != null) {
+      this.right.postorder();
+    }
+
+    System.out.print(this.value + " ");
   }
 }

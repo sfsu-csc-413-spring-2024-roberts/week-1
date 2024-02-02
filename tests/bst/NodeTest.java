@@ -55,10 +55,17 @@ public class NodeTest {
   }
 
   @Test
+  public void testGetHeightSingleValue() {
+    Node node = new Node(42);
+
+    assertEquals(1, node.getHeight());
+  }
+
+  @Test
   public void testGetHeight() {
     Node node = new Node(42);
     node.insert(5);
 
-    assertEquals(1, node.getHeight());
+    assertEquals(2, node.getHeight());
   }
 }
