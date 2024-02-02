@@ -1,26 +1,12 @@
-Classes:
-public Driver
+Searching array:
+O(n)
 
-- main
+Searching binary search tree:
+O(log n)
 
-protected TreeNode
-Data
+Queues - FIFO
+enqueue: O(1)
+search: O(n)
+dequeue: O(1)
 
-- value: int
-- left: Node
-- right: Node
-
-Methods
-accessors (getters), mutators (setters)?
-
-public BinarySearchTree
-Data
-
-- root: Node
-  Methods
-- insert(value: int): void
-- find(value: int): boolean
-- count(): int
-- preorder(): void
-- inorder(): void
-- postorder(): void
+Stacks - LIFO
